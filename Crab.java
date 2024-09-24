@@ -13,48 +13,72 @@ public class Crab extends Actor
       //crab fields
            private boolean keyPress; //key press true or false
            
-           private int speed; //magnitude of speed
-         
-           private boolean collision; //is true if collision with fruit
-
-           private boolean isAtCorner; //is true if crab is colliding with corner
-
            private int yPosition; //position of crab y
 
            private int xPosition; //position of crab x
            
+           private int speed = 0;
+           
+           private int turnSpeed = 0;
     // After the fields place the behaviors
+    public void act()
+    {
+        movement();
+    }
+    
+    private void movement()
+    {
+        crabMovement();
+        turn();
+        changeSpeed();
+        changeTurnSpeed();
+    }
+    
     
            /*will change x and y position of crab at magnitude = to speed on key press and stop movement 
              when keypress = false.
            */
            private void crabMovement()
            {
-               //to be implemented
+               if(Greenfoot.isKeyDown("up")){
+               move(speed);
+            }
            }
            
            /*will trigger the turn motion of the crab if atCorner = true.
            */
-           private void turnAtCorner()
+           private void turn()
            {
-               //to be implemented
-           }
-
-           /*will determine if collision is true or false using x/y position relative to fruit.
-           */
-           private void collision()
-           {
-               //to be implemented
-           }
-
-           public void act()
-           {
-               move(3);
+               if(Greenfoot.isKeyDown("left"))
+               {    
+                   turn(turnSpeed);
+                }
+               if(Greenfoot.isKeyDown("right"))
+               {
+                   turn(-turnSpeed);
+                }
            }
            
-           public void faceDown()
+           private void changeSpeed()
            {
-               turn(90);
+               if(Greenfoot.isKeyDown("w"))
+               {
+                   speed += 3;
+                }
+               if(Greenfoot.isKeyDown("s"))
+               {
+                   speed -= 3;
+                }
+           }
+           
+           private void changeTurnSpeed()
+           {
+               if(Greenfoot.isKeyDown("a")){
+                   turnSpeed -= 1;
+            }
+               if(Greenfoot.isKeyDown("d")){
+                   turnSpeed += 1;
+            }
            }
 }
 
