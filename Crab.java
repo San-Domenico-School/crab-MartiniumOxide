@@ -47,6 +47,15 @@ public class Crab extends Actor
                //to be implemented
            }
 
+           public void act()
+           {
+               move(3);
+           }
+           
+           public void faceDown()
+           {
+               turn(90);
+           }
 }
 
 
