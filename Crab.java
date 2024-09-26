@@ -21,12 +21,9 @@ public class Crab extends Actor
            
            private int turnSpeed = 0;
     // After the fields place the behaviors
-    public void act()
-    {
-        movement();
-    }
     
-    private void movement()
+    
+    public void act()
     {
         crabMovement();
         turn();
