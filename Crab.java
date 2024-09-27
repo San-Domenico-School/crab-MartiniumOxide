@@ -2,10 +2,12 @@ import greenfoot.*;
 
 /**
  * This class constructs the player, a crab and behaviors to
-     * provide gameplay including user input, moving and colliding
-     * 
+     * provide gameplay including user input, moving, turning, changing speed
+     * and changing turning speed.
+     * the crab eats the worms and win when eaten all the worms
+     * the crab dies when being eaten by the lobster
      * author: Martin, Bryce, Leo, Brittney
-     * version: Sep 16, 2024
+     * version: Sep 26, 2024
 */
 public class Crab extends Actor
 {
@@ -13,15 +15,12 @@ public class Crab extends Actor
       //crab fields
            private boolean keyPress; //key press true or false
            
-           private int yPosition; //position of crab y
-
-           private int xPosition; //position of crab x
-           
            private int speed = 0;
            
            private int turnSpeed = 0;
+           
+           
     // After the fields place the behaviors
-    
     
     public void act()
     {
@@ -42,17 +41,24 @@ public class Crab extends Actor
             }
            }
            
+           
            /*will trigger the turn motion of the crab if atCorner = true.
            */
            private void turn()
            {
+               //set initial orientation
+               
+               //turn left
                if(Greenfoot.isKeyDown("left"))
                {    
                    turn(turnSpeed);
                 }
+                
+                //turn right
                if(Greenfoot.isKeyDown("right"))
                {
                    turn(-turnSpeed);
+                   
                 }
            }
            
