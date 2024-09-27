@@ -22,6 +22,7 @@ public class Lobster extends Actor
     
     public void act()
     {
+        
         lobsterOrientation();//orient the lobster
         lobsterMovement();//acclerate the lobster
         lobsterCollision();//collision
@@ -30,10 +31,8 @@ public class Lobster extends Actor
         //orient the lobster to the direction of the crab
         private void lobsterOrientation()
        {
-           //how
-       }
-        
-        
+        //nothing
+        }
         
         //accelerate the lobster towards the crab
         private void lobsterMovement()
