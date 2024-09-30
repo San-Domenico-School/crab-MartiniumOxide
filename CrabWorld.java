@@ -4,11 +4,11 @@ public class CrabWorld extends World
 {
     /**
      * Create the crab world (the beach). Our world has a size 
-     * of 560x560 cells, where every cell is just 1 pixel.
+     * of 800*800 cells, where every cell is just 1 pixel.
      */
     public CrabWorld() 
     {
-        super(560, 560, 1);
+        super(800, 800, 1);
         prepareScene();
         addPlayer();
         addWorm();
@@ -62,10 +62,9 @@ public class CrabWorld extends World
             //instantiate new lobsters
             Lobster lobster = new Lobster();
             
-            
             //setits spawning location 
-            addObject(lobster, getWidth()-10, getHeight()-10);
+            addObject(lobster, getWidth()-15, getHeight()-15);
         }
     
-//new methods
+
 }

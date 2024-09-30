@@ -1,5 +1,5 @@
 import greenfoot.*;
-
+import java.util.List;
 /**
  * This class constructs the player, a crab and behaviors to
      * provide gameplay including user input, moving, turning, changing speed
@@ -13,21 +13,26 @@ public class Crab extends Actor
 {
     // 
       //crab fields
-           private boolean keyPress; //key press true or false
-           
-           private int speed = 0;
-           
-           private int turnSpeed = 0;
-           
-           
-    // After the fields place the behaviors
+           private boolean keyPress; 
+           //key press true or false           
+           private int speed = 10;
+           //initial speed of player
+           private int turnSpeed = 3;
+           //initial turn speed of player
+           public int wormsEaten = 0;
+           //worms eaten
+           private int maxSpeed = 11;
+           //maximum speed of player
     
+    //the action
     public void act()
     {
-        crabMovement();
-        turn();
-        changeSpeed();
-        changeTurnSpeed();
+        crabMovement();//forward and backward
+        turn();//left and right rotation
+        changeSpeed();//change of speed
+        changeTurnSpeed();//change of turn speed
+        eatWorms();//interact with the worms class
+        win();//celebration
     }
     
     
@@ -36,13 +41,19 @@ public class Crab extends Actor
            */
            private void crabMovement()
            {
-               if(Greenfoot.isKeyDown("up")){
+               if(Greenfoot.isKeyDown("up"))
+               {
                move(speed);
-            }
+                }   
+                if(Greenfoot.isKeyDown("down"))
+                {
+                    move(-speed);
+                }
            }
            
            
-           /*will trigger the turn motion of the crab if atCorner = true.
+           /*will trigger the turn motion of the crab if "left" or "right" is
+            * being pressed
            */
            private void turn()
            {
@@ -51,36 +62,75 @@ public class Crab extends Actor
                //turn left
                if(Greenfoot.isKeyDown("left"))
                {    
-                   turn(turnSpeed);
+                   turn(-turnSpeed);
                 }
                 
                 //turn right
                if(Greenfoot.isKeyDown("right"))
                {
-                   turn(-turnSpeed);
+                   turn(turnSpeed);
                    
                 }
            }
            
+           //will change the speed when pressing "w" or "s"
            private void changeSpeed()
            {
-               if(Greenfoot.isKeyDown("w"))
+               if (speed <= maxSpeed)
                {
-                   speed += 3;
+                   if(Greenfoot.isKeyDown("w"))
+                   {
+                       speed += 1;
+                    }
+                   if(Greenfoot.isKeyDown("s"))
+                   {
+                       speed -= 1;
+                    }
                 }
-               if(Greenfoot.isKeyDown("s"))
+            }
+            
+            /*will change the turning speed when key "a" or "d" is 
+             * being pressed
+             * 
+             */
+           private void changeTurnSpeed()
+           {
+               if(Greenfoot.isKeyDown("a"))
                {
-                   speed -= 3;
+                   turnSpeed -= 1;
+                }
+               if(Greenfoot.isKeyDown("d"))
+               {
+                   turnSpeed += 1;
                 }
            }
            
-           private void changeTurnSpeed()
+           //will eat the worms when they collide
+           private void eatWorms()
            {
-               if(Greenfoot.isKeyDown("a")){
-                   turnSpeed -= 1;
+            //get all of the worms
+            List<Worm> worms = getIntersectingObjects(Worm.class); 
+            /*remove the worm, increase max speed and print the number
+             * of worms eaten on the console screen
+             */
+            for (Worm worm : worms)
+            {
+                // Example action: Remove the crab
+                getWorld().removeObject(worm);
+                wormsEaten ++;
+                maxSpeed ++;
+                System.out.println("worms eaten: " + wormsEaten);
             }
-               if(Greenfoot.isKeyDown("d")){
-                   turnSpeed += 1;
+            
+           }
+           
+           //win when eaten all the worms
+           private void win()
+           {
+               if (wormsEaten == 10)
+            {
+                System.out.println("You won! " + "\uD83D\uDE00");
+                wormsEaten ++;
             }
            }
 }
