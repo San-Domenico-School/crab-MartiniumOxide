@@ -2,6 +2,8 @@ import greenfoot.*;  // (Actor, World, Greenfoot, GreenfootImage)
 
 public class CrabWorld extends World
 {
+    private Crab crab;
+    
     /**
      * Create the crab world (the beach). Our world has a size 
      * of 800*800 cells, where every cell is just 1 pixel.
@@ -26,8 +28,7 @@ public class CrabWorld extends World
         private void addPlayer()
         {
             //instantiate new objects
-            Crab crab = new Crab();
-            
+            crab = new Crab();
             //add it to the world
             addObject(crab, 10,10);
             
@@ -60,7 +61,7 @@ public class CrabWorld extends World
         private void addLobster()
         {
             //instantiate new lobsters
-            Lobster lobster = new Lobster();
+            Lobster lobster = new Lobster(crab);
             
             //setits spawning location 
             addObject(lobster, getWidth()-15, getHeight()-15);

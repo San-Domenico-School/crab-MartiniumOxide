@@ -120,6 +120,7 @@ public class Crab extends Actor
                 wormsEaten ++;
                 maxSpeed ++;
                 System.out.println("worms eaten: " + wormsEaten);
+                Greenfoot.playSound("slurp.wav");
             }
             
            }
@@ -130,6 +131,9 @@ public class Crab extends Actor
                if (wormsEaten == 10)
             {
                 System.out.println("You won! " + "\uD83D\uDE00");
+                Greenfoot.playSound("fanfare.wav");
+                getWorld().showText("You Won", getWorld().getWidth()/2,
+                                               getWorld().getHeight()/2);
                 wormsEaten ++;
             }
            }

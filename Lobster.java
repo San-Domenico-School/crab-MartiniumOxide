@@ -22,6 +22,15 @@ public class Lobster extends Actor
     //its maximum speed
     private int deltaMS;
     //change in maximum(turn) speed
+    private Crab crab;
+    
+    
+    
+    public Lobster(Crab crab)
+    {
+        this.crab = crab;
+    }
+    
     
     //actions
     public void act()
@@ -37,25 +46,12 @@ public class Lobster extends Actor
         //orient the lobster to the direction of the crab
         private void lobsterOrientation()
        {
-           // Get the current world
-            CrabWorld world = (CrabWorld) getWorld(); 
+            //get the list of crabs
+            List<Crab> crabs = getWorld().getObjects(Crab.class);
             //orient the lobster when its speed is less or equal to max speed
-            if (speed <=maxSpeedTurn)
+            if (speed <=maxSpeedTurn && !crabs.isEmpty() )
             {
-                // Retrieve the list of Crab objects in the world
-                List<Crab> crabs = world.getObjects(Crab.class);
-                //check if there is any crabs
-                if (!crabs.isEmpty()) 
-                {
-                    Crab closestCrab = crabs.get(0); 
-                    // Get the first crab
-                    
-                    // Get the crab's coordinates
-                    int crabX = closestCrab.getX();
-                    int crabY = closestCrab.getY();
-                    //orient the lobster
-                    turnTowards(crabX, crabY);
-                }
+                    turnTowards(crab.getX(), crab.getY());
             }
             
         }
@@ -92,24 +88,26 @@ public class Lobster extends Actor
             //collision with the crab
             private void lobsterCollision()
             {
-                
                 // Get all crabs currently touching the lobster
-                List<Crab> crabs = getIntersectingObjects(Crab.class); 
-                for (Crab crab : crabs) 
+                Crab collidingCrab = (Crab) getOneIntersectingObject(Crab.class); 
+                // remove the crab when colliding with it
+                if(collidingCrab != null)
                 {
-                    // remove the crab when colliding with it
+                    System.out.println("You Lost...");
+                    Greenfoot.playSound("au.wav");
+                    speed = 0; // Stop the lobster upon collision
                     getWorld().removeObject(crab);
-                    speed = -1; // Stop the lobster upon collision
                 }
+                
+                
+                
             }
         
         //update the maximum speeds when the player has eaten one more worm
         private void updateMax()
         {
-            //get the world
-            CrabWorld world = (CrabWorld) getWorld(); 
             //get the list of crabs
-            List<Crab> crabs = world.getObjects(Crab.class);
+            List<Crab> crabs = getWorld().getObjects(Crab.class);
             //get the wormsEaten data from the crab class
             if(!crabs.isEmpty())
             {
